@@ -20,8 +20,12 @@ class AddPurchasesTable extends Migration
             $table->date('date');
             $table->integer('comments')->nullable();
             $table->enum('condition', ['confirmada', 'en_espera', 'rechazada']);
+            $table->integer('last_updated_by')->unsigned();
+            $table->integer('created_by')->unsigned();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('last_updated_by')->references('id')->on('users');
 
             $table->timestamps();
         });
